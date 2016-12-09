@@ -1,38 +1,41 @@
 var http = require('http')
-, fs   = require('fs')
-, url  = require('url')
-, port = 8080
+  , fs   = require('fs')
+  , url  = require('url')
+  , port = 8080
 
 var server = http.createServer (function (req, res) {
-		var uri = url.parse(req.url)
+	var uri = url.parse(req.url)
 
-		switch( uri.pathname ) {
+	switch( uri.pathname ) {
 		case '/':    
 		case '/index.html':
-		sendFile(res, 'index.html')
-		break
+			sendFile(res, 'index.html')
+			break
+		case '/core_map.js':
+			sendFile(res, 'core_map.js', 'application/javascript')
+			break
 		case '/style.css':
-		sendFile(res, 'style.css', 'text/css')
-		break
-		case '/chi.geojson':
-		sendFile(res, 'chi.geojson', 'text/javascript')
-		break
+			sendFile(res, 'style.css', 'text/css')
+			break
+		case '/police_beats.json':
+			sendFile(res, 'police_beats.json', 'application/json')
+			break
 		default:
-		res.writeHead(404, {'Content-type': "text/html"})
-		ret  = '<meta http-equiv="refresh" content="2;url=https://cs4241-fp-akshitsoota.herokuapp.com/" />';
-		ret += '<h3>404 - File not found :(</h3>'
+			res.writeHead(404, {'Content-type': "text/html"})
+			ret  = '<meta http-equiv="refresh" content="2;url=https://cs4241-fp-akshitsoota.herokuapp.com/" />';
+			ret += '<h3>404 - File not found :(</h3>'
 			res.end(ret)
-			}
-			})
+	}
+})
 
-	server.listen(process.env.PORT || port)
+server.listen(process.env.PORT || port)
 console.log(port)
 
-	function sendFile(res, filename, contentType) {
-		contentType = contentType || 'text/html'
+function sendFile(res, filename, contentType) {
+	contentType = contentType || 'text/html'
 
-			fs.readFile(filename, function(error, content) {
-					res.writeHead(200, {'Content-type': contentType})
-					res.end(content, 'utf-8')
-					})
-	}
+	fs.readFile(filename, function(error, content) {
+		res.writeHead(200, {'Content-type': contentType})
+		res.end(content, 'utf-8')
+	})
+}
