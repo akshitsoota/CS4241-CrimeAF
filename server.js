@@ -23,6 +23,18 @@ var server = http.createServer (function (req, res) {
 		case '/police_beats.json':
 			sendFile(res, 'police_beats.json', 'application/json')
 			break
+		case '/imgs/theft.png':
+			sendFile(res, 'imgs/theft.png', 'image')
+			break
+		case '/imgs/drugs.png':
+			sendFile(res, 'imgs/drugs.png', 'image')
+			break
+		case '/imgs/arson.png':
+			sendFile(res, 'imgs/arson.png', 'image')
+			break
+		case '/imgs/murder.png':
+			sendFile(res, 'imgs/murder.png', 'image')
+			break
 		default:
 			res.writeHead(404, {'Content-type': "text/html"})
 			ret  = '<meta http-equiv="refresh" content="2;url=https://cs4241-fp-akshitsoota.herokuapp.com/" />';

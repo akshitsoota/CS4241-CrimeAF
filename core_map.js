@@ -16,6 +16,28 @@ function populatePoliceBeats(json) {
 	mark("ARSON", "AGRAVATED", "SCHOOL, PUBLIC, BUILDING", "False", 41.729756954, -87.65559428);
 	mark("HOMICIDE", "FIRST DEGREE MURDER", "STAIRWELL", "False", 41.897430484, -87.766701942);
 }
+
+//function setBeatColor(beat){
+//	// count crime types and set colors accordingly
+//	switch(beat.descr){ // next data E8C600
+//		case 'THEFT':
+//	    		beat.setStyle({fillColor: '#3EFF08'}); //green
+//			break
+//		case 'ARSON':
+//			color(circle, '#FF7000', 0.5); //orange
+//	    		beat.setStyle({fillColor: '#3EFF08'}); //green
+//			break
+//		case 'HOMICIDE':
+//			color(circle, '#E80C55', 0.7); //red
+//			break
+//		case 'NARCOTICS':
+//			color(circle, '#5C00FF', 0.4); //purple
+//			break
+//		default:
+//			L.marker(crimePT).addTo(mymap).bindPopup(descr);
+//	}
+//}
+
 window.onload = function() {
 	// Load the LeafletJS Map
 	mymap = L.map('mapid').setView([41.83866957879685, -87.67467498779297], 11);
@@ -74,10 +96,10 @@ var CrimeIcon = L.Icon.extend({
 // map icon types to images
 // var theftIcon = new CrimeIcon({iconUrl: 'theft.png'}) // will need server switch for local
 // http://www.iemoji.com/#?category=objects&version=9&theme=appl&skintone=default
-var theftIcon = new CrimeIcon({iconUrl: 'http://pix.iemoji.com/lg33/0573.png'}),
-    drugsIcon = new CrimeIcon({iconUrl: 'http://pix.iemoji.com/lg33/0258.png'}),
-    arsonIcon = new CrimeIcon({iconUrl: 'http://pix.iemoji.com/hang33/0686.png'}),
-    murderIcon = new CrimeIcon({iconUrl: 'http://pix.iemoji.com/hang33/0691.png'});
+var theftIcon = new CrimeIcon({iconUrl: 'imgs/theft.png'}),
+    drugsIcon = new CrimeIcon({iconUrl: 'imgs/drugs.png'}),
+    arsonIcon = new CrimeIcon({iconUrl: 'imgs/arson.png'}),
+    murderIcon = new CrimeIcon({iconUrl: 'imgs/murder.png'});
 
 // color object ex: (ojbName '#4B1BDE' 0.7)
 function color(thing, colo, op){
@@ -91,7 +113,6 @@ function color(thing, colo, op){
 // mark the map given the json data
 function mark(descr1, descr2, ldescr, arrboo, geo1, geo2){
 	var crimePT = [geo1, geo2]; //might need to rem "s: nawh
-	//var marker = L.marker(crimePT).addTo(map);
 	var descr = "<b>" + descr1 + "</br>";
 	descr += "<br>Description: " + descr2;
 	descr += "<br>Location: " + ldescr;
@@ -102,7 +123,7 @@ function mark(descr1, descr2, ldescr, arrboo, geo1, geo2){
 		fillOpacity: 0.1,
 		radius: 500
 	});
-	switch(descr1){ // next cata E8C600
+	switch(descr1){ // next data E8C600
 		case 'THEFT':
 			L.marker(crimePT, {icon: theftIcon}).addTo(mymap).bindPopup(descr);
 			color(circle, '#3EFF08', 0.3); //green
