@@ -10,8 +10,12 @@ function populatePoliceBeats(json) {
 		    fillOpacity: 0.5,
 		}).addTo(mymap);
 	}
+	// TODO: populate map parsing json into markers like the cool kids
+	mark("THEFT", "$500 AND UNDER", "ALLEY", "False", 41.914403235, -87.719130719);
+	mark("NARCOTICS", "POSS: HEROIN(WHITE)", "SIDEWALK", "True", 41.883960232, -87.728217573);
+	mark("ARSON", "AGRAVATED", "SCHOOL, PUBLIC, BUILDING", "False", 41.729756954, -87.65559428);
+	mark("HOMICIDE", "FIRST DEGREE MURDER", "STAIRWELL", "False", 41.897430484, -87.766701942);
 }
-
 window.onload = function() {
 	// Load the LeafletJS Map
 	mymap = L.map('mapid').setView([41.83866957879685, -87.67467498779297], 11);
@@ -51,4 +55,75 @@ function getRandomColor() {
         color += letters[Math.floor(Math.random() * 16)];
     }
     return color;
+}
+
+// create Icon class for crimes
+var CrimeIcon = L.Icon.extend({
+    options: {
+	// shadowUrl: 'leaf-shadow.png',
+	iconSize:     [30, 30],
+	//shadowSize:   [50, 64],
+	//iconAnchor:   [22, 94],
+	iconAnchor:   [30, 30],
+	//shadowAnchor: [4, 62],
+	//popupAnchor:  [-3, -76]
+	popupAnchor:  [0, -46]
+    }
+});
+
+// map icon types to images
+// var theftIcon = new CrimeIcon({iconUrl: 'theft.png'}) // will need server switch for local
+// http://www.iemoji.com/#?category=objects&version=9&theme=appl&skintone=default
+var theftIcon = new CrimeIcon({iconUrl: 'http://pix.iemoji.com/lg33/0573.png'}),
+    drugsIcon = new CrimeIcon({iconUrl: 'http://pix.iemoji.com/lg33/0258.png'}),
+    arsonIcon = new CrimeIcon({iconUrl: 'http://pix.iemoji.com/hang33/0686.png'}),
+    murderIcon = new CrimeIcon({iconUrl: 'http://pix.iemoji.com/hang33/0691.png'});
+
+// color object ex: (ojbName '#4B1BDE' 0.7)
+function color(thing, colo, op){
+	thing.setStyle({
+	    color: colo,
+	    fillColor: colo,
+	    fillOpacity: op,
+	});
+}
+
+// mark the map given the json data
+function mark(descr1, descr2, ldescr, arrboo, geo1, geo2){
+	var crimePT = [geo1, geo2]; //might need to rem "s: nawh
+	//var marker = L.marker(crimePT).addTo(map);
+	var descr = "<b>" + descr1 + "</br>";
+	descr += "<br>Description: " + descr2;
+	descr += "<br>Location: " + ldescr;
+	descr += "<br>Arrest Made: " + arrboo;
+	var circle = L.circle(crimePT, {
+		color: 'black',
+		fillColor: '#f03',
+		fillOpacity: 0.1,
+		radius: 500
+	});
+	switch(descr1){ // next cata E8C600
+		case 'THEFT':
+			L.marker(crimePT, {icon: theftIcon}).addTo(mymap).bindPopup(descr);
+			color(circle, '#3EFF08', 0.3); //green
+			circle.addTo(mymap);
+			break
+		case 'ARSON':
+			L.marker(crimePT, {icon: arsonIcon}).addTo(mymap).bindPopup(descr);
+			color(circle, '#FF7000', 0.5); //orange
+			circle.addTo(mymap);
+			break
+		case 'HOMICIDE':
+			L.marker(crimePT, {icon: murderIcon}).addTo(mymap).bindPopup(descr);
+			color(circle, '#E80C55', 0.7); //red
+			circle.addTo(mymap);
+			break
+		case 'NARCOTICS':
+			L.marker(crimePT, {icon: drugsIcon}).addTo(mymap).bindPopup(descr);
+			color(circle, '#5C00FF', 0.4); //purple
+			circle.addTo(mymap);
+			break
+		default:
+			L.marker(crimePT).addTo(mymap).bindPopup(descr);
+	}
 }
