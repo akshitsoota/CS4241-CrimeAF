@@ -1,0 +1,35 @@
+body {
+	margin: 0; padding: 0;
+}
+
+#mapid { 
+	position: absolute;
+	z-index: 1;
+	top: 0; left: 0; height: 100%; width: 100%; 
+}
+
+#timeline-scroll {
+	position: absolute; 
+	left: 15px; top: 100px;
+	z-index: 2;
+}
+
+/* Right tooltip code */
+.tooltip {
+	width: 150px;
+	background-color: black;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 5px 0;
+	/* Position the tooltip */
+	position: absolute;
+	z-index: 3;
+}
+
+/* Overriding jQuery UI CSS */
+.ui-state-default { background: #323232 !important; }
+.ui-state-hover { border: 1px solid #EAEAEA !important; }
+.ui-widget-header { background: #C7FFC7 !important; }
+.ui-widget-content { background: #FFE0E0 !important; }
+.ui-slider { border: 1px solid #000 !important; }

@@ -6,7 +6,7 @@ function populatePoliceBeats(json) {
 	for(var key in json) {
 		policeBeatPolygons[key] = L.polygon(json[key], {
 			color: 'transparent',
-		    fillColor: '#00ff00',
+		    fillColor: getRandomColor(),
 		    fillOpacity: 0.5,
 		}).addTo(mymap);
 	}
@@ -41,3 +41,14 @@ window.onload = function() {
 		ajax.send(null);
 	}
 };
+
+// STACKOVEFLOW REFERENCE: http://stackoverflow.com/a/1484514
+// Function generate random colors for cool map polygon colors
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
