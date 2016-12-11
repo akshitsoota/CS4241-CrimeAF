@@ -1,12 +1,12 @@
 var http = require('http')
   , fs   = require('fs')
   , url  = require('url')
-  , qs = require('querystring')
+	, qs = require('querystring')
   , port = 8080
 
 var MAX_OPACITY = 0.8
 var MIN_OPACITY = 0.2
-var NUMBER_OF_BEATS = 277
+var NUMBER_OF_BEATS = 274
 
 var server = http.createServer (function (req, res) {
 	var uri = url.parse(req.url)
