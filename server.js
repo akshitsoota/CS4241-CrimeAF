@@ -23,6 +23,12 @@ var server = http.createServer (function (req, res) {
 		case '/police_beats.json':
 			sendFile(res, 'police_beats.json', 'application/json')
 			break
+		case '/play.png':
+			sendFile(res, 'play.png', 'image/png')
+			break
+		case '/pause.png':
+			sendFile(res, 'pause.png', 'image/png')
+			break
 		default:
 			res.writeHead(404, {'Content-type': "text/html"})
 			ret  = '<meta http-equiv="refresh" content="2;url=https://cs4241-fp-akshitsoota.herokuapp.com/" />';
