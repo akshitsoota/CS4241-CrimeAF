@@ -6,7 +6,7 @@ function populatePoliceBeats(json) {
 	for(var key in json) {
 		policeBeatPolygons[key] = L.polygon(json[key], {
 			color: 'transparent',
-		    fillColor: getRandomColor(),
+		    fillColor: 'black', //getRandomColor(),
 		    fillOpacity: 0.5,
 		}).addTo(mymap);
 	}

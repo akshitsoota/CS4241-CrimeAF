@@ -14,14 +14,23 @@ var server = http.createServer (function (req, res) {
 		case '/core_map.js':
 			sendFile(res, 'core_map.js', 'application/javascript')
 			break
+		case '/core_populate.js':
+			sendFile(res, 'core_populate.js', 'application/javascript')
+			break
 		case '/core_scroller.js':
 			sendFile(res, 'core_scroller.js', 'application/javascript')
 			break
 		case '/styles.css':
 			sendFile(res, 'styles.css', 'text/css')
 			break
+		case '/data/ARSON.json':
+			sendFile(res, 'data/ARSON.json', 'application/json')
+			break
 		case '/police_beats.json':
 			sendFile(res, 'police_beats.json', 'application/json')
+			break
+		case '/imgs/city.png':
+			sendFile(res, 'imgs/city.png', 'image')
 			break
 		case '/imgs/theft.png':
 			sendFile(res, 'imgs/theft.png', 'image')
