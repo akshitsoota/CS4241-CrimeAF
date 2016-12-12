@@ -1,5 +1,7 @@
 var mymap = null;
 var policeBeatPolygons = {};
+var iconMarkers = {};
+
 
 function populatePoliceBeats(json) {
 	// Iterate over each key and make the polygon on the map
@@ -17,26 +19,14 @@ function populatePoliceBeats(json) {
 	mark("HOMICIDE", "FIRST DEGREE MURDER", "STAIRWELL", "False", 41.897430484, -87.766701942);
 }
 
-//function setBeatColor(beat){
-//	// count crime types and set colors accordingly
-//	switch(beat.descr){ // next data E8C600
-//		case 'THEFT':
-//	    		beat.setStyle({fillColor: '#3EFF08'}); //green
-//			break
-//		case 'ARSON':
-//			color(circle, '#FF7000', 0.5); //orange
-//	    		beat.setStyle({fillColor: '#3EFF08'}); //green
-//			break
-//		case 'HOMICIDE':
-//			color(circle, '#E80C55', 0.7); //red
-//			break
-//		case 'NARCOTICS':
-//			color(circle, '#5C00FF', 0.4); //purple
-//			break
-//		default:
-//			L.marker(crimePT).addTo(mymap).bindPopup(descr);
-//	}
-//}
+// TODO: see above I got this bishhhh!!
+function populateIcons(json) {
+	// Iterate over each key and make the polygon on the map
+	for(var key in json) {
+		iconMarkers[key] = mark(json[key]["Primary Type"], json[key]["Description"], json[key]["Date"], json[key]["Arrest"], json[key]["Latitude"], json[key]["Longitude"]);
+	}
+}
+
 
 window.onload = function() {
 	// Load the LeafletJS Map
@@ -64,6 +54,25 @@ window.onload = function() {
 			}
 		};
 		ajax.open("GET", "police_beats.json", true);
+		ajax.send(null);
+	}
+	// Check localStorage for the police beats
+	if( localStorage != undefined && localStorage.hasOwnProperty("arson") ) {
+		// Load the police beats from the local storage
+		populateIcons(JSON.parse(localStorage.getItem("arson")))
+	} else {
+		// Use AJAX to get the police beats
+		var ajax = new XMLHttpRequest();
+		ajax.onload = function() {
+			// Process the response text
+			var responseJSON = JSON.parse(ajax.responseText);
+			populateIcons(responseJSON);
+			// Store if localStorage API exists
+			if( localStorage != undefined ) {
+				localStorage.setItem("arson", ajax.responseText);
+			}
+		};
+		ajax.open("GET", "data/ARSON.json", true);
 		ajax.send(null);
 	}
 };

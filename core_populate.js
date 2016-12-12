@@ -4,33 +4,24 @@ var iconMarkers = {};
 function populateIcons(json) {
 	// Iterate over each key and make the polygon on the map
 	for(var key in json) {
-		iconMarkers[key] = L.polygon(json[key], {
-			color: 'transparent',
-		    fillColor: 'black', //getRandomColor(),
-		    fillOpacity: 0.5,
-		}).addTo(mymap);
+		iconMarkers[key] = mark(json[key]["Primary Type"], json[key]["Description"], json[key]["Date"], json[key]["Arrest"], json[key]["Latitude"], json[key]["Longitude"]);
 	}
-	// TODO: populate map parsing json into markers like the cool kids
-//	mark("THEFT", "$500 AND UNDER", "ALLEY", "False", 41.914403235, -87.719130719);
-//	mark("NARCOTICS", "POSS: HEROIN(WHITE)", "SIDEWALK", "True", 41.883960232, -87.728217573);
-//	mark("ARSON", "AGRAVATED", "SCHOOL, PUBLIC, BUILDING", "False", 41.729756954, -87.65559428);
-//	mark("HOMICIDE", "FIRST DEGREE MURDER", "STAIRWELL", "False", 41.897430484, -87.766701942);
 }
 
 // mark the map given the json data
-function mark(descr1, descr2, ldescr, arrboo, geo1, geo2){
+function mark(type, descr, ldescr, arrest, geo1, geo2){
 	var crimePT = [geo1, geo2]; //might need to rem "s: nawh
-	var descr = "<b>" + descr1 + "</br>";
-	descr += "<br>Description: " + descr2;
+	var descr = "<b>" + type + "</br>";
+	descr += "<br>Description: " + descr;
 	descr += "<br>Location: " + ldescr;
-	descr += "<br>Arrest Made: " + arrboo;
+	descr += "<br>Arrest Made: " + arrest;
 	var circle = L.circle(crimePT, {
 		color: 'black',
 		fillColor: '#f03',
 		fillOpacity: 0.1,
 		radius: 500
 	});
-	switch(descr1){ // next data E8C600
+	switch(type){ // next data E8C600
 		case 'THEFT':
 			L.marker(crimePT, {icon: theftIcon}).addTo(mymap).bindPopup(descr);
 			color(circle, '#3EFF08', 0.3); //green
@@ -57,6 +48,13 @@ function mark(descr1, descr2, ldescr, arrboo, geo1, geo2){
 }
 
 window.onload = function() {
+		mymap = L.map('mapid').setView([41.83866957879685, -87.67467498779297], 11);
+	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+	    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+	    maxZoom: 18,
+	    id: 'jograpes.2an7km5n',
+	    accessToken: 'pk.eyJ1Ijoiam9ncmFwZXMiLCJhIjoiY2l3Z25iOHV5MDE3ZzJ6cG8xZzRsODFkdSJ9.H5EJQCq5TlSyrgkhGxlIfw'
+	}).addTo(mymap);
 	// Check localStorage for arson
 	if( localStorage != undefined && localStorage.hasOwnProperty("arson") ) {
 		// Load arson from the local storage
@@ -79,9 +77,7 @@ window.onload = function() {
 };
 
 // create Icon class for crimes
-var CrimeIcon = L.Icon.extend({
-    options: {
-	// shadowUrl: 'leaf-shadow.png',
+var CrimeIcon = L.Icon.extend({ options: { // shadowUrl: 'leaf-shadow.png',
 	iconSize:     [30, 30],
 	//shadowSize:   [50, 64],
 	//iconAnchor:   [22, 94],
