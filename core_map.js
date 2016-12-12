@@ -8,7 +8,7 @@ function populatePoliceBeats(json) {
 	for(var key in json) {
 		policeBeatPolygons[key] = L.polygon(json[key], {
 			color: 'transparent',
-		    fillColor: 'black', //getRandomColor(),
+		    fillColor: '#dc322f', //getRandomColor(),
 		    fillOpacity: 0.5,
 		}).addTo(mymap);
 	}
@@ -130,7 +130,7 @@ function mark(descr1, descr2, ldescr, arrboo, geo1, geo2){
 		color: 'black',
 		fillColor: '#f03',
 		fillOpacity: 0.1,
-		radius: 500
+		radius: 50
 	});
 	switch(descr1){ // next data E8C600
 		case 'THEFT':
