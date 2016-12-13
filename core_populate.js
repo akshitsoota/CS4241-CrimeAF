@@ -25,7 +25,7 @@ window.addEventListener("load", function() {
 				localStorage.setItem("crime", ajax2.responseText);
 			}
 		};
-		ajax2.open("GET", "NOV112016.json", true);
+		ajax2.open("GET", "NOV2016.json", true);
 		ajax2.send(null);
 	}
 });

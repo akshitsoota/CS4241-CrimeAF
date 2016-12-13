@@ -28,8 +28,8 @@ var server = http.createServer (function (req, res) {
 		case '/styles.css':
 			sendFile(res, 'styles.css', 'text/css')
 			break
-		case '/NOV112016.json':
-			sendFile(res, 'NOV112016.json', 'application/json')
+		case '/NOV2016.json':
+			sendFile(res, 'NOV2016.json', 'application/json')
 			break
 		case '/police_beats.json':
 			sendFile(res, 'police_beats.json', 'application/json')
