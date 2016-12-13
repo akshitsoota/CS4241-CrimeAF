@@ -1,86 +1,16 @@
 body {
 	margin: 0; padding: 0;
-	font-family: Helvetica, Arial, Sans-Serif;
-}
-
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-}
-
-li {
-    float: right;
-}
-
-li a {
-    display: block;
-    /*text-align: center;*/
-    padding: 0px 16px;
-    text-decoration: none;
-	color: #268bd2;
-}
-
-li a:hover {
-    /*background-color: #111;*/
-    color: #7A66FF;
-}
-
-li.category{
-	color: #268bd2;
-}
-
-li#home{
-	
-    float: left;
-    color: #7A66FF;
-}
-
-#tophat{
-	/*background-image: url(imgs/city.png);*/
-	height: 15%; width: 100%;
-	font-style: Sans Serif;
-}
-
-#tophat h2{
-	top: -30px;
-	position: absolute;
-    /*color: #7A66FF;*/
-    color: #fff;
-    font-size: 500%;
-}
-
-/*#tophat p{
-	top: -3000px;
-	color: #000;
-	right: 250;
-	position: absolute;
-}*/
-
-#tophat img{
-		position: relative;
-		height: 100%; width: 100%;
-}
-
-#navbar{
-	/*position: absolute;*/
-	z-index: 4;
 }
 
 #mapid { 
-	/*position: absolute;*/
-	position: relative;
+	position: absolute;
 	z-index: 1;
-	/*top: 0; left: 0;*/
-	margin: 0 auto; 
-	height: 79%; width: 95%;
+	top: 0; left: 0; height: 100%; width: 100%; 
 }
 
 #timeline-scroll {
-	/*position: absolute; */
-	left: 15px; top: 100px;
+	position: absolute; 
+	left: 22px; top: 100px;
 	z-index: 2;
 }
 
@@ -93,8 +23,30 @@ li#home{
 	border-radius: 6px;
 	padding: 5px 0;
 	/* Position the tooltip */
-	/*position: absolute;*/
+	position: absolute;
 	z-index: 3;
+}
+
+/* Play and Pause Buttons */
+.playbackbutton {
+	background-size: 48px 48px;
+	background-color: #86C5DA;
+	border-radius: 6px;
+	position: absolute;
+	bottom: 13px; left: 7px;
+	z-index: 3;
+	height: 48px;
+	width: 48px;
+	cursor: pointer;
+}
+
+.playbutton {	
+	background-image: url(play.png);
+}
+
+.pausebutton {	
+	background-image: url(pause.png);
+	display: none;
 }
 
 /* Overriding jQuery UI CSS */
@@ -103,4 +55,3 @@ li#home{
 .ui-widget-header { background: #C7FFC7 !important; }
 .ui-widget-content { background: #FFE0E0 !important; }
 .ui-slider { border: 1px solid #000 !important; }
-

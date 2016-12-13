@@ -9,51 +9,17 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
 		<script src="core_map.js"></script>
-		<!-- <script src="core_populate.js"></script> -->
 		<script src="core_scroller.js"></script>
 		<link rel="stylesheet" href="styles.css" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
 	<body>
-		<div id="tophat">
-			<img src="imgs/city.png">
-			<h2>Chicago</h2>
-			<!-- <p>Crime After Filtering - Chi Town</p> -->
-		</div>
-		<div id="navbar">
-		    <ul>
-			<li id="home"><a href="#"><p>CrimeAF</p></a></li>
-			<li class="category"><a href="#"><p id="theft">Theft</p></a></li>
-			<li class="category"><a href="#"><p id="murder">Murder</p></a></li>
-			<li class="category"><a href="#"><p id="drugs">Drugs</p></a></li>
-			<li class="category"><a href="#"><p id="arson">Arson</p></a></li>
-			<li class="category"><a href="#"><p>All</p></a></li>
-		    </ul>
-		    <script type="text/javascript">
-			var ele = document.getElementById('theft');
-			ele.addEventListener('click', function(){
-				var ele = document.getElementById('theft');
-				ele.innerHTML = '<img src"/imgs/theft.png">'
-			});
-			var ele = document.getElementById('drugs');
-			ele.addEventListener('click', function(){
-				var ele = document.getElementById('drugs');
-				ele.innerHTML = '<img src"/imgs/drugs.png">'
-			});
-			var ele = document.getElementById('arson');
-			ele.addEventListener('click', function(){
-				var ele = document.getElementById('arson');
-				ele.innerHTML = '<img src"/imgs/arson.png">'
-			});
-			var ele = document.getElementById('murder');
-			ele.addEventListener('click', function(){
-				var ele = document.getElementById('murder');
-				ele.innerHTML = '<img src"/imgs/murder.png">'
-			});
-		    </script>
-		</div>
-		<div id="mapid">
-			<div id="timeline-scroll"></div>
-			<div id="timeline-time-tooltip" class="tooltip"></div>
-		</div>
+		<div id="mapid"></div>
+		<div id="timeline-scroll"></div>
+		<div id="timeline-time-tooltip" class="tooltip"></div>
+		<!-- Playback Controls -->
+		<div id="timeline-play" class="playbackbutton playbutton"></div>
+		<div id="timeline-pause" class="playbackbutton pausebutton"></div>
 	</body>
 </html>
