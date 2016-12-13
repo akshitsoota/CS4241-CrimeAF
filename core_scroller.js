@@ -14,6 +14,8 @@ $(function(){
 		value: 0,
 		slide: function( event, ui ) {
 			playback_control_onslide(ui);
+			playback_control_pause();
+			playback_control_maprender();
 		}
 	});
 	// Scroller setup
@@ -53,7 +55,7 @@ function playback_control_start() {
 	$("#timeline-play").css({'display': 'none'});
 	$("#timeline-pause").css({'display': 'block'});
 
-	playback_scrolling_timer_id = window.setInterval(playback_control_scroll_up, 100);
+	playback_scrolling_timer_id = window.setInterval(playback_control_scroll_up, 150);
 }
 
 function playback_control_scroll_up() {
@@ -65,6 +67,32 @@ function playback_control_scroll_up() {
 	// Else, scroll through
 	$("#timeline-scroll").slider("value", $("#timeline-scroll").slider("value") + 1);
 	playback_control_onslide();
+	// Map render
+	playback_control_maprender();
+}
+
+function playback_control_maprender() {
+	// Render on the map
+	var beatOrdering = crimeCountByBeat["__beatordering"];
+	var month = ($("#timeline-scroll").slider("value") % 12) + 1;
+	var year = parseInt($("#timeline-scroll").slider("value") / 12) + 2013;
+	var keyFormation = ((month > 9 ? "" : "0") + month + "_" + year);
+	var values = crimeCountByBeat[keyFormation];
+
+	for(var idx = 0; idx < beatOrdering.length; idx++) {
+		policeBeatPolygons[beatOrdering[idx]].setStyle({fillOpacity: values[idx]});
+	}
+}
+
+function __maprender(month, year) {
+	// Render on the map
+	var beatOrdering = crimeCountByBeat["__beatordering"];
+	var keyFormation = ((month > 9 ? "" : "0") + month + "_" + year);
+	var values = crimeCountByBeat[keyFormation];
+
+	for(var idx = 0; idx < beatOrdering.length; idx++) {
+		policeBeatPolygons[beatOrdering[idx]].setStyle({fillOpacity: values[idx]});
+	}
 }
 
 function playback_control_onslide(ui) {
@@ -79,6 +107,8 @@ function playback_control_onslide(ui) {
 	$("#timeline-time-tooltip").text(text);
 	// Save state
 	last_seen_scroll_value = value;
+	// Update the map UI
+	playback_control_maprender();
 }
 
 function playback_control_pause() {

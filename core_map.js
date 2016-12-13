@@ -1,12 +1,13 @@
 var mymap = null;
 var policeBeatPolygons = {};
+var crimeCountByBeat = {};
 
 function populatePoliceBeats(json) {
 	// Iterate over each key and make the polygon on the map
 	for(var key in json) {
 		policeBeatPolygons[key] = L.polygon(json[key], {
 			color: 'transparent',
-		    fillColor: getRandomColor(),
+		    fillColor: '#7F0000',
 		    fillOpacity: 0.5,
 		}).addTo(mymap);
 	}
@@ -18,6 +19,7 @@ window.onload = function() {
 	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
 	    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
 	    maxZoom: 18,
+	    minZoom: 10,
 	    id: 'jograpes.2an7km5n',
 	    accessToken: 'pk.eyJ1Ijoiam9ncmFwZXMiLCJhIjoiY2l3Z25iOHV5MDE3ZzJ6cG8xZzRsODFkdSJ9.H5EJQCq5TlSyrgkhGxlIfw'
 	}).addTo(mymap);
@@ -40,6 +42,30 @@ window.onload = function() {
 		ajax.open("GET", "police_beats.json", true);
 		ajax.send(null);
 	}
+	// Load the key-value pair with all the crimes
+	var ajax2 = new XMLHttpRequest();
+	ajax2.onload = function() {
+		// Save the key-value pair
+		crimeCountByBeat = JSON.parse(ajax2.responseText);
+		// Iterate over and add all zeros if certain key doesn't exist
+		for(var month = 1; month <= 12; month++) {
+			for(var year = 2013; year <= 2016; year++) {
+				if( month == 12 && year == 2016 ) continue;
+
+				var formation = ((month > 9 ? "" : "0") + month + "_" + year);
+				if( !crimeCountByBeat.hasOwnProperty(formation) ) {
+					var emptyList = [];
+					for(var item in crimeCountByBeat["__beatordering"])
+						emptyList.push(0.1);
+					crimeCountByBeat[formation] = emptyList;
+				}
+			}
+		}
+		// Load the latest
+		__maprender(1, 2013);
+	};
+	ajax2.open("GET", "/get?type=all", true);
+	ajax2.send(null);
 };
 
 // STACKOVEFLOW REFERENCE: http://stackoverflow.com/a/1484514

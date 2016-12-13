@@ -4,8 +4,8 @@ var http = require('http')
   , qs = require('querystring')
   , port = 8080
 
-var MAX_OPACITY = 0.8
-var MIN_OPACITY = 0.2
+var MAX_OPACITY = 0.95
+var MIN_OPACITY = 0.1
 var NUMBER_OF_BEATS = 277
 
 var server = http.createServer (function (req, res) {
