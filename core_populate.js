@@ -1,18 +1,4 @@
-var mymap = null;
-var policeBeatPolygons = {};
 var iconMarkers = {};
-
-
-function populatePoliceBeats(json) {
-	// Iterate over each key and make the polygon on the map
-	for(var key in json) {
-		policeBeatPolygons[key] = L.polygon(json[key], {
-			color: 'transparent',
-		    fillColor: '#dc322f', //red getRandomColor(),
-		    fillOpacity: 0.5,
-		}).addTo(mymap);
-	}
-}
 
 // TODO: see above I got this bishhhh!!
 function populateIcons(json) {
@@ -21,7 +7,6 @@ function populateIcons(json) {
 		iconMarkers[key] = mark(json[key]["Primary Type"], json[key]["Description"], json[key]["Date"], json[key]["Arrest"], json[key]["Latitude"], json[key]["Longitude"]);
 	}
 }
-
 
 window.addEventListener("load", function() {
 	// Check localStorage for crimes
@@ -44,17 +29,6 @@ window.addEventListener("load", function() {
 		ajax2.send(null);
 	}
 });
-
-// STACKOVEFLOW REFERENCE: http://stackoverflow.com/a/1484514
-// Function generate random colors for cool map polygon colors
-function getRandomColor() {
-    var letters = '0123456789ABCDEF';
-    var color = '#';
-    for (var i = 0; i < 6; i++ ) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-}
 
 // create Icon class for crimes
 var CrimeIcon = L.Icon.extend({
