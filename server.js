@@ -96,7 +96,7 @@ var server = http.createServer (function (req, res) {
 			break
 		default:
 			res.writeHead(404, {'Content-type': "text/html"})
-			ret  = '<meta http-equiv="refresh" content="2;url=https://cs4241-fp-ankitkumarr.herokuapp.com/" />';
+			ret  = '<meta http-equiv="refresh" content="2;url=/" />';
 			ret += '<h3>404 - File not found :(</h3>'
 			res.end(ret)
 	}
