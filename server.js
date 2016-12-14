@@ -19,14 +19,71 @@ var server = http.createServer (function (req, res) {
 		case '/core_map.js':
 			sendFile(res, 'core_map.js', 'application/javascript')
 			break
+		case '/core_populate.js':
+			sendFile(res, 'core_populate.js', 'application/javascript')
+			break
 		case '/core_scroller.js':
 			sendFile(res, 'core_scroller.js', 'application/javascript')
 			break
 		case '/styles.css':
 			sendFile(res, 'styles.css', 'text/css')
 			break
+		case '/NOV2016.json':
+			sendFile(res, 'NOV2016.json', 'application/json')
+			break
 		case '/police_beats.json':
 			sendFile(res, 'police_beats.json', 'application/json')
+			break
+		case '/imgs/city.png':
+			sendFile(res, 'imgs/city.png', 'image/png')
+			break
+		case '/imgs/arson.png':
+			sendFile(res, 'imgs/arson.png', 'image/png')
+			break
+		case '/imgs/beer.png':
+			sendFile(res, 'imgs/beer.png', 'image/png')
+			break
+		case '/imgs/car.png':
+			sendFile(res, 'imgs/car.png', 'image/png')
+			break
+		case '/imgs/cop.png':
+			sendFile(res, 'imgs/cop.png', 'image/png')
+			break
+		case '/imgs/drugs.png':
+			sendFile(res, 'imgs/drugs.png', 'image/png')
+			break
+		case '/imgs/foot.png':
+			sendFile(res, 'imgs/foot.png', 'image/png')
+			break
+		case '/imgs/gamb.png':
+			sendFile(res, 'imgs/gamb.png', 'image/png')
+			break
+		case '/imgs/guns.png':
+			sendFile(res, 'imgs/guns.png', 'image/png')
+			break
+		case '/imgs/hit.png':
+			sendFile(res, 'imgs/hit.png', 'image/png')
+			break
+		case '/imgs/kid.png':
+			sendFile(res, 'imgs/kid.png', 'image/png')
+			break
+		case '/imgs/kiss.png':
+			sendFile(res, 'imgs/kiss.png', 'image/png')
+			break
+		case '/imgs/murder.png':
+			sendFile(res, 'imgs/murder.png', 'image/png')
+			break
+		case '/imgs/peace.png':
+			sendFile(res, 'imgs/peace.png', 'image/png')
+			break
+		case '/imgs/rape.png':
+			sendFile(res, 'imgs/rape.png', 'image/png')
+			break
+		case '/imgs/theft.png':
+			sendFile(res, 'imgs/theft.png', 'image/png')
+			break
+		case '/styles.css':
+			sendFile(res, 'styles.css', 'text/css')
 			break
 		case '/play.png':
 			sendFile(res, 'play.png', 'image/png')
@@ -39,7 +96,7 @@ var server = http.createServer (function (req, res) {
 			break
 		default:
 			res.writeHead(404, {'Content-type': "text/html"})
-			ret  = '<meta http-equiv="refresh" content="2;url=https://cs4241-fp-ankitkumarr.herokuapp.com/" />';
+			ret  = '<meta http-equiv="refresh" content="2;url=/" />';
 			ret += '<h3>404 - File not found :(</h3>'
 			res.end(ret)
 	}
