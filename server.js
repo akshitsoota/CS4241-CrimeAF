@@ -28,11 +28,11 @@ var server = http.createServer (function (req, res) {
 		case '/styles.css':
 			sendFile(res, 'styles.css', 'text/css')
 			break
-		case '/NOV2016.json':
-			sendFile(res, 'NOV2016.json', 'application/json')
+		case '/data/NOV2016.json':
+			sendFile(res, 'data/NOV2016.json', 'application/json')
 			break
-		case '/police_beats.json':
-			sendFile(res, 'police_beats.json', 'application/json')
+		case '/data/police_beats.json':
+			sendFile(res, 'data/police_beats.json', 'application/json')
 			break
 		case '/imgs/city.png':
 			sendFile(res, 'imgs/city.png', 'image/png')
@@ -82,14 +82,11 @@ var server = http.createServer (function (req, res) {
 		case '/imgs/theft.png':
 			sendFile(res, 'imgs/theft.png', 'image/png')
 			break
-		case '/styles.css':
-			sendFile(res, 'styles.css', 'text/css')
+		case '/imgs/play.png':
+			sendFile(res, 'imgs/play.png', 'image/png')
 			break
-		case '/play.png':
-			sendFile(res, 'play.png', 'image/png')
-			break
-		case '/pause.png':
-			sendFile(res, 'pause.png', 'image/png')
+		case '/imgs/pause.png':
+			sendFile(res, 'imgs/pause.png', 'image/png')
 			break
 		case '/get':
 			processCrimeData(res, uri, 'application/json')
