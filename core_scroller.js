@@ -13,18 +13,19 @@ $(function(){
 		max: 46,
 		value: 0,
 		slide: function( event, ui ) {
+			var scrollerValue = ui.value;
 			playback_control_onslide(ui);
 			playback_control_pause();
-			playback_control_maprender();
+			playback_control_maprender(scrollerValue);
 		}
 	});
 	// Scroller setup
-	$("#timeline-scroll").height((document.body.offsetHeight - 190) + "px");
+	$("#timeline-scroll").height((document.body.offsetHeight - 160) + "px");
 	document.getElementById("timeline-time-tooltip").style.left = (document.getElementById("timeline-scroll").offsetLeft + document.getElementById("timeline-scroll").offsetWidth + 15) + "px";
 	$("#timeline-time-tooltip").text(month_mapping[0] + ", " + year_mapping[0]);
 
 	// Calculate top
-	var top = 85 + parseInt((46 - last_seen_scroll_value) * ((document.body.offsetHeight - 190) / 46));
+	var top = 55 + parseInt((46 - last_seen_scroll_value) * ((document.body.offsetHeight - 160) / 46));
 	document.getElementById("timeline-time-tooltip").style.top = top + "px";
 
 	// Add click listeners to the play and pause buttons
@@ -38,10 +39,10 @@ $(function(){
 
 $(window).resize(function() {
 	// Scroller setup
-	$("#timeline-scroll").height((document.body.offsetHeight - 190) + "px");
+	$("#timeline-scroll").height((document.body.offsetHeight - 160) + "px");
 	document.getElementById("timeline-time-tooltip").style.left = (document.getElementById("timeline-scroll").offsetLeft + document.getElementById("timeline-scroll").offsetWidth + 15) + "px";
 	// Calculate top
-	var top = 85 + parseInt((46 - last_seen_scroll_value) * ((document.body.offsetHeight - 190) / 46));
+	var top = 55 + parseInt((46 - last_seen_scroll_value) * ((document.body.offsetHeight - 190) / 46));
 	document.getElementById("timeline-time-tooltip").style.top = top + "px";
 });
 
@@ -68,31 +69,11 @@ function playback_control_scroll_up() {
 	$("#timeline-scroll").slider("value", $("#timeline-scroll").slider("value") + 1);
 	playback_control_onslide();
 	// Map render
-	playback_control_maprender();
+	playback_control_maprender($("#timeline-scroll").slider("value"));
 }
 
-function playback_control_maprender() {
-	// Render on the map
-	var beatOrdering = crimeCountByBeat["__beatordering"];
-	var month = ($("#timeline-scroll").slider("value") % 12) + 1;
-	var year = parseInt($("#timeline-scroll").slider("value") / 12) + 2013;
-	var keyFormation = ((month > 9 ? "" : "0") + month + "_" + year);
-	var values = crimeCountByBeat[keyFormation];
-
-	for(var idx = 0; idx < beatOrdering.length; idx++) {
-		policeBeatPolygons[beatOrdering[idx]].setStyle({fillOpacity: values[idx]});
-	}
-}
-
-function __maprender(month, year) {
-	// Render on the map
-	var beatOrdering = crimeCountByBeat["__beatordering"];
-	var keyFormation = ((month > 9 ? "" : "0") + month + "_" + year);
-	var values = crimeCountByBeat[keyFormation];
-
-	for(var idx = 0; idx < beatOrdering.length; idx++) {
-		policeBeatPolygons[beatOrdering[idx]].setStyle({fillOpacity: values[idx]});
-	}
+function playback_control_maprender(value) {
+	__maprender(1 + (value % 12), 2013 + parseInt(value / 12))
 }
 
 function playback_control_onslide(ui) {
@@ -100,7 +81,7 @@ function playback_control_onslide(ui) {
 	var value = $("#timeline-scroll").slider("value");
 	if( ui != undefined ) value = ui.value;
 	// Process the tooltip movement
-	var top = 85 + parseInt((46 - value) * ((document.body.offsetHeight - 190) / 46));
+	var top = 55 + parseInt((46 - value) * ((document.body.offsetHeight - 160) / 46));
 	var text = month_mapping[value % 12] + ", " + year_mapping[parseInt(value / 12)];
 
 	$("#timeline-time-tooltip").css({'top': top + "px"});
@@ -108,7 +89,7 @@ function playback_control_onslide(ui) {
 	// Save state
 	last_seen_scroll_value = value;
 	// Update the map UI
-	playback_control_maprender();
+	playback_control_maprender(value);
 }
 
 function playback_control_pause() {

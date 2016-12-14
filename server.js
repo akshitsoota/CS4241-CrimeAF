@@ -19,6 +19,9 @@ var server = http.createServer (function (req, res) {
 		case '/core_map.js':
 			sendFile(res, 'core_map.js', 'application/javascript')
 			break
+		case '/core_tabs.js':
+			sendFile(res, 'core_tabs.js', 'application/javascript')
+			break
 		case '/core_populate.js':
 			sendFile(res, 'core_populate.js', 'application/javascript')
 			break

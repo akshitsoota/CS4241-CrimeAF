@@ -10,7 +10,7 @@ body {
 
 #timeline-scroll {
 	position: absolute; 
-	left: 22px; top: 100px;
+	left: 22px; top: 70px;
 	z-index: 2;
 }
 
@@ -41,20 +41,21 @@ body {
 }
 
 .playbutton {	
-	background-image: url(play.png);
+	background-image: url(imgs/play.png);
 }
 
 .pausebutton {	
-	background-image: url(pause.png);
+	background-image: url(imgs/pause.png);
 	display: none;
 }
 
 #horizontal-tabholder {
 	font-family: 'Roboto', sans-serif;
-	background-color: rgba(255, 255, 255, 0.8);
+	background-color: rgba(0, 0, 0, 0.8);
 	position: absolute;
 	top: 0px; left: 0px; right: 0px;
 	font-size: 1.1em;
+	color: #FFF;
 	z-index: 4;
 }
 
@@ -66,7 +67,7 @@ body {
 #horizontal-tabholder .tab {
 	display: table-cell;
 	width: 150px;
-	padding: 5px 5px 5px 10px;
+	padding: 8px 5px 8px 10px;
 	text-align: center;
 }
 
@@ -82,7 +83,7 @@ body {
 
 #horizontal-tabholder .tab.unselected:hover {
 	font-weight: bold;
-	border-bottom: 5px #006D7F solid;
+	border-bottom: 5px #00DAFF solid;
 }
 
 @media only screen and (max-width: 760px) {
@@ -125,6 +126,26 @@ body {
 		display: none;
 	}
 
+}
+
+#loadingsplash {
+	position: absolute;
+	top: 0; right: 0; bottom: 0; left: 0;
+	background-color: white;
+	z-index: 100;
+}
+
+#loadingsplash #loading {
+	display: table;
+	position: absolute;
+	bottom: 10px; right: 10px;
+}
+
+#loadingsplash #loading h2 {
+	font-family: 'Oswald', sans-serif;
+	vertical-align: middle;
+	display: table-cell;
+	padding-left: 15px;
 }
 
 /* Overriding jQuery UI CSS */
