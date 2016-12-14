@@ -9,25 +9,20 @@ function populateIcons(json) {
 }
 
 window.addEventListener("load", function() {
-	// Check localStorage for crimes
-	if(  localStorage.hasOwnProperty("crime") ) {
-		// Load crimes from the local storage
-		populateIcons(JSON.parse(localStorage.getItem("crime")))
-	} else {
-		// Use AJAX to get crimes
-		var ajax2 = new XMLHttpRequest();
-		ajax2.onload = function() {
-			// Process the response text
-			var responseJSON2 = JSON.parse(ajax2.responseText);
-			populateIcons(responseJSON2);
-			// Store if localStorage API exists
-			if( localStorage != undefined ) {
-				localStorage.setItem("crime", ajax2.responseText);
-			}
-		};
-		ajax2.open("GET", "NOV2016.json", true);
-		ajax2.send(null);
-	}
+	// Store 11/16 Crimes to localStorage
+	var ajax2 = new XMLHttpRequest();
+	ajax2.onload = function() {
+		// Process the response text
+		// var responseJSON2 = JSON.parse(ajax2.responseText);
+		// DON'T POPULATE THE ICONS YET:
+		// populateIcons(responseJSON2);
+		// Store if localStorage API exists
+		if( window.localStorage != undefined ) {
+			window.localStorage.setItem("crime", ajax2.responseText);
+		}
+	};
+	ajax2.open("GET", "/data/NOV2016.json", true);
+	ajax2.send(null);
 });
 
 // create Icon class for crimes
@@ -88,87 +83,103 @@ function mark(descr1, descr2, ldescr, arrboo, geo1, geo2){
 	});
 	switch(descr1){ // next data E8C600
 		case 'ARSON':
-			L.marker(crimePT, {icon: arsonIcon}).addTo(mymap).bindPopup(descr);
+			var ret = L.marker(crimePT, {icon: arsonIcon}).addTo(mymap).bindPopup(descr);
 			color(circle, '#FF7000', 0.5); //orange
 			circle.addTo(mymap);
+			return [ret, circle];
 			break
 		case 'MOTOR VEHICLE THEFT':
-			L.marker(crimePT, {icon: carIcon}).addTo(mymap).bindPopup(descr);
+			var ret = L.marker(crimePT, {icon: carIcon}).addTo(mymap).bindPopup(descr);
 			color(circle, '#3EFF08', 0.3); //green
 			circle.addTo(mymap);
+			return [ret, circle];
 			break
 		case 'GAMBLING':
-			L.marker(crimePT, {icon: gambIcon}).addTo(mymap).bindPopup(descr);
+			var ret = L.marker(crimePT, {icon: gambIcon}).addTo(mymap).bindPopup(descr);
 			color(circle, '#3EFF08', 0.3); //green
 			circle.addTo(mymap);
+			return [ret, circle];
 			break
 		case 'THEFT':
 		case 'ROBBERY':
 		case 'BURGLARY':
-			L.marker(crimePT, {icon: theftIcon}).addTo(mymap).bindPopup(descr);
+			var ret = L.marker(crimePT, {icon: theftIcon}).addTo(mymap).bindPopup(descr);
 			color(circle, '#3EFF08', 0.3); //green
 			circle.addTo(mymap);
+			return [ret, circle];
 			break
 		case 'LIQUOR LAW VIOLATION':
-			L.marker(crimePT, {icon: beerIcon}).addTo(mymap).bindPopup(descr);
+			var ret = L.marker(crimePT, {icon: beerIcon}).addTo(mymap).bindPopup(descr);
 			color(circle, '#E80C55', 0.7); //red
 			circle.addTo(mymap);
+			return [ret, circle];
 			break
 		case 'INTERFERENCE WITH PUBLIC OFFICER':
-			L.marker(crimePT, {icon: copIcon}).addTo(mymap).bindPopup(descr);
+			var ret = L.marker(crimePT, {icon: copIcon}).addTo(mymap).bindPopup(descr);
 			color(circle, '#E80C55', 0.7); //red
 			circle.addTo(mymap);
+			return [ret, circle];
 			break
 		case 'BATTERY':
 		case 'INTIMIDATION':
 		case 'OFFENSE INVOLVING CHILDREN':
-			L.marker(crimePT, {icon: hitIcon}).addTo(mymap).bindPopup(descr);
+			var ret = L.marker(crimePT, {icon: hitIcon}).addTo(mymap).bindPopup(descr);
 			color(circle, '#E80C55', 0.7); //red
 			circle.addTo(mymap);
+			return [ret, circle];
 			break
 		case 'HOMICIDE':
-			L.marker(crimePT, {icon: murderIcon}).addTo(mymap).bindPopup(descr);
+			var ret = L.marker(crimePT, {icon: murderIcon}).addTo(mymap).bindPopup(descr);
 			color(circle, '#E80C55', 0.7); //red
 			circle.addTo(mymap);
+			return [ret, circle];
 			break
 		case 'SEX OFFENSE':
 		case 'CRIM SEXUAL ASSAULT':
 		case 'STALKING':
-			L.marker(crimePT, {icon: rapeIcon}).addTo(mymap).bindPopup(descr);
+			var ret = L.marker(crimePT, {icon: rapeIcon}).addTo(mymap).bindPopup(descr);
 			color(circle, '#E80C55', 0.7); //red
 			circle.addTo(mymap);
+			return [ret, circle];
 			break
 		case 'KIDNAPPING':
-			L.marker(crimePT, {icon: kidIcon}).addTo(mymap).bindPopup(descr);
+			var ret = L.marker(crimePT, {icon: kidIcon}).addTo(mymap).bindPopup(descr);
 			color(circle, '#E80C55', 0.7); //red
 			circle.addTo(mymap);
+			return [ret, circle];
 			break
 		case 'PROSTITUTION':
-			L.marker(crimePT, {icon: kissIcon}).addTo(mymap).bindPopup(descr);
+			var ret = L.marker(crimePT, {icon: kissIcon}).addTo(mymap).bindPopup(descr);
 			color(circle, '#E80C55', 0.7); //red
 			circle.addTo(mymap);
+			return [ret, circle];
 			break
 		case 'PUBLIC PEACE VIOLATION':
-			L.marker(crimePT, {icon: peaceIcon}).addTo(mymap).bindPopup(descr);
+			var ret = L.marker(crimePT, {icon: peaceIcon}).addTo(mymap).bindPopup(descr);
 			color(circle, '#E80C55', 0.7); //red
 			circle.addTo(mymap);
+			return [ret, circle];
 			break
 		case 'NARCOTICS':
-			L.marker(crimePT, {icon: drugsIcon}).addTo(mymap).bindPopup(descr);
+			var ret = L.marker(crimePT, {icon: drugsIcon}).addTo(mymap).bindPopup(descr);
 			color(circle, '#5C00FF', 0.4); //purple
 			circle.addTo(mymap);
+			return [ret, circle];
 			break
 		case 'CRIMINAL TRESPASS':
-			L.marker(crimePT, {icon: footIcon}).addTo(mymap).bindPopup(descr);
+			var ret = L.marker(crimePT, {icon: footIcon}).addTo(mymap).bindPopup(descr);
 			color(circle, '#5C00FF', 0.4); //purple
 			circle.addTo(mymap);
+			return [ret, circle];
 			break
 		case 'WEAPONS VIOLATION':
-			L.marker(crimePT, {icon: gunsIcon}).addTo(mymap).bindPopup(descr);
+			var ret = L.marker(crimePT, {icon: gunsIcon}).addTo(mymap).bindPopup(descr);
 			color(circle, '#5C00FF', 0.4); //purple
 			circle.addTo(mymap);
+			return [ret, circle];
 			break
 		default:
-			L.marker(crimePT).addTo(mymap).bindPopup(descr);
+			var ret = L.marker(crimePT).addTo(mymap).bindPopup(descr);
+			return [ret, circle];
 	}
 }

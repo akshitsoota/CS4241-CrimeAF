@@ -19,6 +19,9 @@ var server = http.createServer (function (req, res) {
 		case '/core_map.js':
 			sendFile(res, 'core_map.js', 'application/javascript')
 			break
+		case '/core_tabs.js':
+			sendFile(res, 'core_tabs.js', 'application/javascript')
+			break
 		case '/core_populate.js':
 			sendFile(res, 'core_populate.js', 'application/javascript')
 			break
@@ -28,11 +31,11 @@ var server = http.createServer (function (req, res) {
 		case '/styles.css':
 			sendFile(res, 'styles.css', 'text/css')
 			break
-		case '/NOV2016.json':
-			sendFile(res, 'NOV2016.json', 'application/json')
+		case '/data/NOV2016.json':
+			sendFile(res, 'data/NOV2016.json', 'application/json')
 			break
-		case '/police_beats.json':
-			sendFile(res, 'police_beats.json', 'application/json')
+		case '/data/police_beats.json':
+			sendFile(res, 'data/police_beats.json', 'application/json')
 			break
 		case '/imgs/city.png':
 			sendFile(res, 'imgs/city.png', 'image/png')
@@ -82,14 +85,11 @@ var server = http.createServer (function (req, res) {
 		case '/imgs/theft.png':
 			sendFile(res, 'imgs/theft.png', 'image/png')
 			break
-		case '/styles.css':
-			sendFile(res, 'styles.css', 'text/css')
+		case '/imgs/play.png':
+			sendFile(res, 'imgs/play.png', 'image/png')
 			break
-		case '/play.png':
-			sendFile(res, 'play.png', 'image/png')
-			break
-		case '/pause.png':
-			sendFile(res, 'pause.png', 'image/png')
+		case '/imgs/pause.png':
+			sendFile(res, 'imgs/pause.png', 'image/png')
 			break
 		case '/get':
 			processCrimeData(res, uri, 'application/json')
@@ -118,22 +118,16 @@ function sendFile(res, filename, contentType) {
 function processCrimeData(res,uri, contentType) {
 	if (uri.query) {
 		var parsed = qs.parse(uri.query)
-		if (parsed.type!=null) {
+		if (parsed.type != null)
 			getProcessedJSON(res, parsed, contentType)
-		}
-
-		else {
+		else
 			res.end('incorrect query')
-		}
-
-	}
-	else {
+	} else
 		res.end('no query provided')
-	}
 }
 
 function getProcessedJSON (res, parsed, contentType) {
-	//If all of the crime info is requested
+	// If all of the crime info is requested
 	if (parsed.type == 'all') {
 		var allCrimeJSON = getBeatSizeInitialJSON();
 		fs.readdir('data/BeatJSONData/', function(err, filenames) {
@@ -141,6 +135,7 @@ function getProcessedJSON (res, parsed, contentType) {
 				console.log(err);
 				return
 			}
+
 			filenames.forEach(function(filename) {
 				var contents = fs.readFileSync('data/BeatJSONData/' + filename);
 				var jsonContent = JSON.parse(contents);
@@ -167,9 +162,7 @@ function getProcessedJSON (res, parsed, contentType) {
 			res.writeHead(200, {'Content-type': contentType})
 			res.end(JSON.stringify(allCrimeJSON))
 		})
-	}
-
-	else {
+	} else {
 		var crimeJSON = {}
 		if(!fs.existsSync('data/BeatJSONData/' + parsed.type + '.json')) {
 			res.writeHead(200, {'Content-type': contentType})
@@ -220,29 +213,29 @@ function addListToList(list1, list2) {
 
 //Makes a JSON will all the required keys and values as list of 0s
 function getBeatSizeInitialJSON() {
-		var allCrimeJSON = {}
-		var beatSizeList = []
-		for (var i = 0; i < NUMBER_OF_BEATS; i++) {
-			beatSizeList.push(0)
+	var allCrimeJSON = {}
+	var beatSizeList = []
+	for (var i = 0; i < NUMBER_OF_BEATS; i++) {
+		beatSizeList.push(0)
+	}
+	allCrimeJSON["__beatordering"] = []
+	//Initialize the JSON to have all the proper keys
+	for (var i = 2013; i <=2016; i++) {
+		var jLimit = 12
+		if (i == 2016){
+			jLimit = 11
 		}
-		allCrimeJSON["__beatordering"] = []
-		//Initialize the JSON to have all the proper keys
-		for (var i = 2013; i <=2016; i++) {
-			var jLimit = 12
-			if (i == 2016){
-				jLimit = 11
+		for (var j = 1; j <=jLimit; j++) {
+			if (j > 9) {
+				var key = (j.toString() + "_" + i.toString());
 			}
-			for (var j = 1; j <=jLimit; j++) {
-				if (j > 9) {
-					var key = (j.toString() + "_" + i.toString());
-				}
-				else {
-					var key = ("0" + j.toString() + "_" + i.toString());
-				}
-				allCrimeJSON[key] = beatSizeList.slice();
+			else {
+				var key = ("0" + j.toString() + "_" + i.toString());
 			}
+			allCrimeJSON[key] = beatSizeList.slice();
 		}
-		return allCrimeJSON
+	}
+	return allCrimeJSON
 }
 
 
