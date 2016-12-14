@@ -49,6 +49,84 @@ body {
 	display: none;
 }
 
+#horizontal-tabholder {
+	font-family: 'Roboto', sans-serif;
+	background-color: rgba(255, 255, 255, 0.8);
+	position: absolute;
+	top: 0px; left: 0px; right: 0px;
+	font-size: 1.1em;
+	z-index: 4;
+}
+
+.tabsholder {
+	margin: 0 auto;
+	width: 800px;
+}
+
+#horizontal-tabholder .tab {
+	display: table-cell;
+	width: 150px;
+	padding: 5px 5px 5px 10px;
+	text-align: center;
+}
+
+#horizontal-tabholder .tab.selected {
+	border-bottom: 5px lime solid;
+	font-weight: bold;
+}
+
+#horizontal-tabholder .tab.unselected {
+	border-bottom: 5px #FFA500 solid;
+	cursor: pointer;
+}
+
+#horizontal-tabholder .tab.unselected:hover {
+	font-weight: bold;
+	border-bottom: 5px #006D7F solid;
+}
+
+@media only screen and (max-width: 760px) {
+
+	#tabholder {
+		font-family: 'Roboto', sans-serif;
+		background-color: #fff;
+		position: absolute;
+		top: 0px; right: 0px;
+		font-size: 1.1em;
+		width: 170px;
+		z-index: 4;
+		display: block !important;
+	}
+
+	#tabholder .tab {
+		width: 150px !important;
+		display: block !important;
+		padding: 5px 5px 5px 9px !important;
+		text-align: left !important;
+	}
+
+	#tabholder .tab.selected {
+		border-left: 5px lime solid;
+		border-bottom: none !important;
+		font-weight: bold;
+	}
+
+	#tabholder .tab.unselected {
+		border-left: 5px #FFA500 solid;
+		border-bottom: none !important;
+		cursor: pointer;
+	}
+
+	#tabholder .tab.unselected:hover {
+		font-weight: bold;
+	}
+
+	#horizontal-tabholder {
+		display: none;
+	}
+
+}
+
 /* Overriding jQuery UI CSS */
 .ui-state-default { background: #323232 !important; }
 .ui-state-hover { border: 1px solid #EAEAEA !important; }
