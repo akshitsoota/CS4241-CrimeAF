@@ -94,6 +94,10 @@ var server = http.createServer (function (req, res) {
 		case '/get':
 			processCrimeData(res, uri, 'application/json')
 			break
+		case '/readme.md':
+		case '/README.md':
+			sendFile(res, 'README.md', 'text/markdown')
+			break
 		default:
 			res.writeHead(404, {'Content-type': "text/html"})
 			ret  = '<meta http-equiv="refresh" content="2;url=/" />';
